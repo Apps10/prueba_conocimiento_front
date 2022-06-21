@@ -1,0 +1,36 @@
+<div class="card">
+  <h5 class="card-header">Lista Empleados</h5>
+  <div class="card-body">
+    <div class="row text-end">
+      <div class="col">
+        <button class="btn btn-primary" [routerLink]="['/empleado/new']">Crear Empleado</button>
+      </div>
+    </div>
+    <table class="table table-response">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">TipoIdent</th>
+          <th scope="col">Identificacion</th>
+          <th scope="col">Nombres</th>
+          <th scope="col">Apellidos</th>
+          <th scope="col">Fecha_ingreso</th>
+          <th scope="col">Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let empleado of empleados">
+          <td>{{empleado.tipoIdentificacion | uppercase}}</td>
+          <td>{{empleado.identificacion}}</td>
+          <td>{{empleado.nombres}}</td>
+          <td>{{empleado.apellidos}}</td>
+          <td>{{empleado.fecha_ingreso | date :'YYYY-MM-dd hh:MM:a' }}</td>
+          <td>
+            <a href="/empleado/edit/{{empleado.id}}" class="btn btn-warning">Editar</a>
+            <button (click)="delete(empleado.id)" class="btn btn-danger">Eliminar</button>
+          </td>
+
+        </tr>
+     </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+<div class="card">
+  <h5 class="card-header">Editar Empleado</h5>
+  <div class="card-body">
+
+    <div class="card">
+      <h5 class="card-header">Correos Asociados</h5>
+      <div class="card-body">
+        <div class="row">
+          <form action="">
+            <div class="col">
+              <input type="text" class="form-control" name="email" placeholder="Ingrese Email..." >
+            </div>
+            <div class="col-auto">
+              <button class="btn btn-secondary">Guardar</button>
+            </div>
+          </form>
+        </div>
+        <div class="row">
+          <div class="col">
+            <table class="table table-response">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Direccion de correo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let email of emails">
+                  <td>{{email.email}}</td>
+                  <td>
+                    <button (click)="deleteEmail(email.id)" class="btn btn-danger">Eliminar</button>
+                  </td>
+                </tr>
+             </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+    <div class="card">
+      <h5 class="card-header">Telefonos Asociados</h5>
+      <div class="card-body">
+        <div class="row">
+          <form action="">
+            <div class="col">
+              <input type="text" class="form-control" name="email" placeholder="Ingrese Email..." >
+            </div>
+            <div class="col-auto">
+              <button class="btn btn-secondary">Guardar</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="row" *ngIf="telefonos.length>0; else voidT">
+          <div class="col">
+            <table class="table table-response">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Tipo</th>
+                  <th scope="col">Indicativo</th>
+                  <th scope="col">Numero</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let telefono of telefonos">
+                  <td>{{telefono.Tipo | uppercase}}</td>
+                  <td>{{telefono.indicativo}}</td>
+                  <td>{{telefono.numero}}</td>
+                  <td>
+                    <button (click)="deleteTel(empleado.id)" class="btn btn-danger">Eliminar</button>
+                  </td>
+                </tr>
+             </tbody>
+            </table>
+          </div>
+        </div>
+        <ng-template #voidT>No Existen Registros</ng-template>
+
+
+      </div>
+    </div>
+
+  </div>
+</div>

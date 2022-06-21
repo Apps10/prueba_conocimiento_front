@@ -1,0 +1,30 @@
+<div class="card">
+  <div class="card-body">
+    <div class="card-head">
+      <div class="row">
+        <div class="col">
+          <h5>Crear Empleados</h5>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <form action="#" (submit)="newEmpleado">
+            <input type="text" name="nombres" class="form-control" placeholder="Nombres..." >
+            <input type="text" name="apellidos" class="form-control" placeholder="Apellidos.." >
+            <select name="tipoIdentificacion" class="form-control" >
+              <option>--Seleccione Tipo Documento--</option>
+              <option value="nit">NIT</option>
+              <option value="cc">CC</option>
+            </select>
+            <input type="text" name="identificacion" class="form-control" placeholder="identificacion">
+            <input type="text" name="fecha_ingreso" class="form-control" placeholder="fecha_ingreso" >
+            <button class="btn btn-success w-100">Enviar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
