@@ -1,16 +1,16 @@
 export interface EmpleadoI{
-    id:number,
+    id?:number,
     nombres:string,
     apellidos:string,
     tipoIdentificacion:string,
     identificacion:string,
-    fecha_ingreso:Date
+    fecha_ingreso?:Date
 }
 
 
 
 export interface EmailEmpleadoI{
-    id:number,
+    id?:number,
     email:string,
     personaId:number
 }
@@ -19,7 +19,7 @@ export interface EmailEmpleadoI{
 
 
 export interface TelefonoEmpleadoI{
-    id:number,
+    id?:number,
     Tipo:string,
     numero:string,
     indicativo:string,

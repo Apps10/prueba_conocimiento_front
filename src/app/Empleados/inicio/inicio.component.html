@@ -25,8 +25,8 @@
           <td>{{empleado.apellidos}}</td>
           <td>{{empleado.fecha_ingreso | date :'YYYY-MM-dd hh:MM:a' }}</td>
           <td>
-            <a href="/empleado/edit/{{empleado.id}}" class="btn btn-warning">Editar</a>
-            <button (click)="delete(empleado.id)" class="btn btn-danger">Eliminar</button>
+            <a href="/empleado/edit/{{empleado.id!}}" class="btn btn-warning">Editar</a>
+            <button (click)="delete(empleado.id!)" class="btn btn-danger">Eliminar</button>
           </td>
 
         </tr>

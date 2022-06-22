@@ -1,84 +1,162 @@
 <div class="card">
-  <h5 class="card-header">Editar Empleado</h5>
   <div class="card-body">
+    <div class="row">
+      <div class="col-md-6 col-xs-12">
+        <div class="card">
 
-    <div class="card">
-      <h5 class="card-header">Correos Asociados</h5>
-      <div class="card-body">
-        <div class="row">
-          <form action="">
-            <div class="col">
-              <input type="text" class="form-control" name="email" placeholder="Ingrese Email..." >
+          <h5 class="card-header">Editar Empleado</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <form (ngSubmit)="UpdateEmpleado()" [formGroup]="EmpleadoForm">
+                    <div class="row">
+                      <div class="col">
+                        <input type="text" name="nombres" class="form-control"  placeholder="Nombres..."  formControlName="nombres">
+                        <span class="text-danger" *ngIf="SubmittedEmp && getErrorEmpleado('nombres','required')">El Campo Es Obligatorio</span>
+                        <span class="text-danger" *ngIf="SubmittedEmp && getErrorEmpleado('nombres','maxlength')">Tamaño Maximo Superado</span>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <input type="text" name="apellidos" class="form-control" placeholder="Apellidos.." formControlName="apellidos">
+                        <span class="text-danger" *ngIf="SubmittedEmp && getErrorEmpleado('apellidos','required')">El Campo Es Obligatorio</span>
+                        <span class="text-danger" *ngIf="SubmittedEmp && getErrorEmpleado('apellidos','maxlength')">Tamaño Maximo Superado</span>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <select name="tipoIdentificacion" class="form-control"  formControlName="tipoIdentificacion">
+                          <option selected >--Seleccione Tipo Documento--</option>
+                          <option value="nit">NIT</option>
+                          <option value="cc">CC</option>
+                        </select>
+                        <span class="text-danger" *ngIf="SubmittedEmp && getErrorEmpleado('tipoIdentificacion','required')">El Campo Es Obligatorio</span>
+                        <span class="text-danger" *ngIf="SubmittedEmp && getErrorEmpleado('tipoIdentificacion','tipo_documento')">Opcion Incorrecta</span>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <input type="text" name="identificacion" formControlName="identificacion" class="form-control" placeholder="identificacion">
+                        <span class="text-danger" *ngIf="SubmittedEmp && getErrorEmpleado('identificacion','required')">El Campo Es Obligatorio</span>
+                        <span class="text-danger" *ngIf="SubmittedEmp && getErrorEmpleado('identificacion','maxlength')">Tamaño Maximo Superdado</span>
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-warning w-100">Actualizar</button>
+                  </form>
+                </div>
+                </div>
+              </div>
             </div>
-            <div class="col-auto">
-              <button class="btn btn-secondary">Guardar</button>
-            </div>
-          </form>
         </div>
-        <div class="row">
-          <div class="col">
-            <table class="table table-response">
-              <thead class="thead-dark">
-                <tr>
-                  <th scope="col">Direccion de correo</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let email of emails">
-                  <td>{{email.email}}</td>
-                  <td>
-                    <button (click)="deleteEmail(email.id)" class="btn btn-danger">Eliminar</button>
-                  </td>
-                </tr>
-             </tbody>
-            </table>
-          </div>
-        </div>
-
       </div>
-
-    <div class="card">
-      <h5 class="card-header">Telefonos Asociados</h5>
-      <div class="card-body">
-        <div class="row">
-          <form action="">
-            <div class="col">
-              <input type="text" class="form-control" name="email" placeholder="Ingrese Email..." >
+      <div class="col-md-6 col-xs-12">
+        <div class="card">
+          <h5 class="card-header">Correos Asociados</h5>
+          <div class="card-body">
+            <div class="row">
+              <form action="" [formGroup]="EmailForm" (ngSubmit)="newEmail()">
+                <div class="col">
+                  <input type="text" class="form-control" formControlName="email"  name="email" placeholder="Ingrese Email..." >
+                  <span class="text-danger" *ngIf="SubmittedE &&  EmailForm.get('email')?.hasError('required')">El Campo Es Obligatorio</span>
+                  <span class="text-danger" *ngIf="SubmittedE &&  EmailForm.get('email')?.hasError('email')">El Correo Tiene un Formato Invalido</span>
+                </div>
+                <div class="col-auto">
+                  <button class="btn btn-secondary">Guardar</button>
+                </div>
+              </form>
             </div>
-            <div class="col-auto">
-              <button class="btn btn-secondary">Guardar</button>
+            <div class="row" *ngIf="emails.length>0; else voidE">
+              <div class="col">
+                <table class="table table-response">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">Direccion de correo</th>
+                      <th scope="col">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let email of emails">
+                      <td>{{email.email}}</td>
+                      <td>
+                        <button (click)="deleteEmail(email.id!)" class="btn btn-danger">Eliminar</button>
+                      </td>
+                    </tr>
+                 </tbody>
+                </table>
+              </div>
             </div>
-          </form>
-        </div>
-
-        <div class="row" *ngIf="telefonos.length>0; else voidT">
-          <div class="col">
-            <table class="table table-response">
-              <thead class="thead-dark">
-                <tr>
-                  <th scope="col">Tipo</th>
-                  <th scope="col">Indicativo</th>
-                  <th scope="col">Numero</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let telefono of telefonos">
-                  <td>{{telefono.Tipo | uppercase}}</td>
-                  <td>{{telefono.indicativo}}</td>
-                  <td>{{telefono.numero}}</td>
-                  <td>
-                    <button (click)="deleteTel(empleado.id)" class="btn btn-danger">Eliminar</button>
-                  </td>
-                </tr>
-             </tbody>
-            </table>
+            <ng-template #voidE>No Existen Aun Registros</ng-template>
           </div>
         </div>
-        <ng-template #voidT>No Existen Registros</ng-template>
+
+        <div class="card">
+          <h5 class="card-header">Telefonos Asociados</h5>
+          <div class="card-body">
+            <div class="row">
+              <form action="" [formGroup]="TelefonoForm" (ngSubmit)="NewTel()">
+                <div class="col">
+                  <div class="row">
+                    <div class="col">
+                      <select name="Tipo" id="Tipo" formControlName="Tipo" class="form-control">
+                        <option value> --Seleccione El Tipo Telefono-- </option>
+                        <option value="cell">CELL</option>
+                        <option value="tel">TEL</option>
+                      </select>
+                      <span class="text-danger" *ngIf="SubmittedT &&  TelefonoForm.get('Tipo')?.hasError('required')">El Campo Es Obligatorio</span><br>
+                    </div>
+                    <div class="col">
+                      <input type="text" class="form-control" formControlName="indicativo" name="indicativo" placeholder="Ingrese Indicativo..." >
+                      <span class="text-danger" *ngIf="SubmittedT &&  TelefonoForm.get('indicativo')?.hasError('required')">El Campo Es Obligatorio</span><br>
+                      <span class="text-danger" *ngIf="SubmittedT &&  TelefonoForm.get('indicativo')?.hasError('maxlength')">Tamaño Maximo Superado</span><br>
+
+                    </div>
+                    <div class="col">
+                      <input type="text" class="form-control" formControlName="numero" name="numero" placeholder="Ingrese Telefono..." >
+                      <span class="text-danger" *ngIf="SubmittedT &&  TelefonoForm.get('numero')?.hasError('required')">El Campo Es Obligatorio</span><br>
+                      <span class="text-danger" *ngIf="SubmittedT &&  TelefonoForm.get('numero')?.hasError('maxlength')">Tamaño Maximo Superado</span><br>
+                      <span class="text-danger" *ngIf="SubmittedT &&  TelefonoForm.get('numero')?.hasError('pattern')">Formato De Telefono Incorrecto</span><br>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-auto">
+                  <button class="btn btn-secondary">Guardar</button>
+                </div>
+              </form>
+            </div>
+
+            <div class="row" *ngIf="telefonos.length>0; else voidT">
+              <div class="col">
+                <table class="table table-response">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">Tipo</th>
+                      <th scope="col">Indicativo</th>
+                      <th scope="col">Numero</th>
+                      <th scope="col">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let telefono of telefonos">
+                      <td>{{telefono.Tipo | uppercase}}</td>
+                      <td>{{telefono.indicativo}}</td>
+                      <td>{{telefono.numero}}</td>
+                      <td>
+                        <button (click)="deleteTel(telefono.id!)" class="btn btn-danger">Eliminar</button>
+                      </td>
+                    </tr>
+                 </tbody>
+                </table>
+              </div>
+            </div>
+            <ng-template #voidT>No Existen Aun Registros</ng-template>
 
 
+          </div>
+        </div>
       </div>
     </div>
 
+
+
   </div>
-</div>

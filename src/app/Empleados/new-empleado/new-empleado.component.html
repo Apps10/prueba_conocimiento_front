@@ -9,18 +9,41 @@
     </div>
     <div class="row">
       <div class="col">
-        <div class="form-group">
-          <form action="#" (submit)="newEmpleado">
-            <input type="text" name="nombres" class="form-control" placeholder="Nombres..." >
-            <input type="text" name="apellidos" class="form-control" placeholder="Apellidos.." >
-            <select name="tipoIdentificacion" class="form-control" >
-              <option>--Seleccione Tipo Documento--</option>
-              <option value="nit">NIT</option>
-              <option value="cc">CC</option>
-            </select>
-            <input type="text" name="identificacion" class="form-control" placeholder="identificacion">
-            <input type="text" name="fecha_ingreso" class="form-control" placeholder="fecha_ingreso" >
-            <button class="btn btn-success w-100">Enviar</button>
+        <div class="form-group" >
+          <form (ngSubmit)="newEmpleado()" [formGroup]="createEmpleado">
+            <div class="row">
+              <div class="col">
+                <input type="text" name="nombres" class="form-control"  placeholder="Nombres..."  formControlName="nombres">
+                <span class="text-danger" *ngIf="Submitted && getError('nombres','required')">El Campo Es Obligatorio</span>
+                <span class="text-danger" *ngIf="Submitted && getError('nombres','maxlength')">Tamaño Maximo Superado</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <input type="text" name="apellidos" class="form-control" placeholder="Apellidos.." formControlName="apellidos">
+                <span class="text-danger" *ngIf="Submitted && getError('apellidos','required')">El Campo Es Obligatorio</span>
+                <span class="text-danger" *ngIf="Submitted && getError('apellidos','maxlength')">Tamaño Maximo Superado</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <select name="tipoIdentificacion" class="form-control"  formControlName="tipoIdentificacion">
+                  <option selected >--Seleccione Tipo Documento--</option>
+                  <option value="nit">NIT</option>
+                  <option value="cc">CC</option>
+                </select>
+                <span class="text-danger" *ngIf="Submitted && getError('tipoIdentificacion','required')">El Campo Es Obligatorio</span>
+                <span class="text-danger" *ngIf="Submitted && getError('tipoIdentificacion','tipo_documento')">Opcion Incorrecta</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <input type="text" name="identificacion" formControlName="identificacion" class="form-control" placeholder="identificacion">
+                <span class="text-danger" *ngIf="Submitted && getError('identificacion','required')">El Campo Es Obligatorio</span>
+                <span class="text-danger" *ngIf="Submitted && getError('identificacion','maxlength')">Tamaño Maximo Superdado</span>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-success w-100">Enviar</button>
           </form>
         </div>
       </div>

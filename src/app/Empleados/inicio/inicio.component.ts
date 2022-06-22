@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BackendService } from '../../Services/backend.service';
 import { EmpleadoI } from "../../Interfaces/empleado";
-
+import Swal from "../../Helpers/sweet-alert";
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
@@ -22,7 +22,8 @@ export class InicioComponent implements OnInit {
       console.log("entra en el subscribe");
       console.log(response);
       if(!response.ok){
-        alert(response.body);
+        Swal.Error("Error al Cargar Empleados",response.body);
+        return ;
       }
       this.empleados=response.body;
     });
@@ -31,8 +32,8 @@ export class InicioComponent implements OnInit {
   delete(id:number){
     this.api.DeleteEmpleado(id).subscribe((res:any)=>{
       if(!res.ok){
-        alert(res.body);
-        return;
+        Swal.Error("Error al Elimnar Empleados",res.body);
+        return ;
       }
       for(let i=0;i<this.empleados.length;i++){
         if(this.empleados[i].id==id){
@@ -46,17 +47,9 @@ export class InicioComponent implements OnInit {
           break;
         }
       }
-      alert(res.body);
+      Swal.Success("Correcto",res.body);
     });
 
-  }
-
-  showEmail(id:number){
-    console.log(id);
-  }
-
-  showTelefono(id:number){
-    console.log(id);
   }
 
 }
